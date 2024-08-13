@@ -13,12 +13,16 @@ app.use(bodyParser.json());
 
 // Database Connection
 mongoose
-  .connect(process.env.MONGODB_URI, {
+  .connect("mongodb://mongo:27017/varsha", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log(err));
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Failed to connect to MongoDB", err);
+  });
 
 // Routes
 app.use("/api/users", require("./routes/users"));

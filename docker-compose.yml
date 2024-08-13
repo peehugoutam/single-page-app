@@ -5,15 +5,18 @@ services:
     build: .
     ports:
       - "3000:3000"
+    volumes:
+      - .:/usr/src/app  # Mount the current directory inside the container
+      - /usr/src/app/node_modules  # Exclude node_modules to avoid conflicts
     environment:
-      - MONGODB_URI=mongodb://localhost:27017/varsha
+      - MONGODB_URI=mongodb://mongo:27017/usersdb
     depends_on:
       - mongo
 
   mongo:
     image: mongo:6.0
     ports:
-      - "27017:27017"
+      - "27018:27017"  # Host port 27018 mapped to container port 27017
     volumes:
       - mongo-data:/data/db
 
